@@ -43,7 +43,9 @@
       "x86_64-linux"
       "aarch64-darwin"
     ];
+    system = "x86_64-linux";
     forAllSystems = nixpkgs.lib.genAttrs systems;
+    pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
   in {
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
@@ -52,8 +54,11 @@
     homeManagerModules = import ./modules/home-manager;
     nixosConfigurations = {
 
+      nixos = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; }; 
 
         modules = [
+	  ./users
         ];
       };
     };
