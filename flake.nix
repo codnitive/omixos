@@ -1,5 +1,5 @@
 {
-  description = "Henry's Nix Config";
+  description = "Omixos, minimalistic Nixos";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
@@ -15,27 +15,16 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
-
-    sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     omarchy.url = "github:henrysipp/omarchy-nix";
     omarchy.inputs.nixpkgs.follows = "nixpkgs";
     omarchy.inputs.home-manager.follows = "home-manager";
-
-    fw-fanctrl = {
-      url = "github:TamtamHero/fw-fanctrl/packaging/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
     self,
     nixpkgs,
     home-manager,
-    disko,
     ...
   } @ inputs: let
     inherit (self) outputs;
