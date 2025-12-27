@@ -27,10 +27,48 @@
   in {
     formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
 
+    nixosModules = {
+      default =
+        {
+          config,
+          lib,
+          pkgs,
+          ...
+        }:
+        {
+          imports = [
+            ./modules/nixos/default.nix
+          ];
+
+          options.omarchy = (import ./config.nix lib).omarchyOptions;
+          config = {
+            nixpkgs.config.allowUnfree = true;
+          };
+        };
+    };
+
+    homeManagerModules = {
+      default =
+        {
+          config,
+          lib,
+          pkgs,
+          osConfig ? { },
+          ...
+        }:
+        {
+          imports = [
+            nix-colors.homeManagerModules.default
+            ./modules/home-manager/default.nix
+          ];
+          options.omarchy = (import ./config.nix lib).omarchyOptions;
+          config = lib.mkIf (osConfig ? omarchy) {
+            omarchy = lib.mkDefault osConfig.omarchy;
+          };
+        };
+    };
 
     overlays = import ./overlays {inherit inputs;};
-    nixosModules = import ./modules/nixos;
-    homeManagerModules = import ./modules/home-manager;
     nixosConfigurations = {
 
       nixos = nixpkgs.lib.nixosSystem {
