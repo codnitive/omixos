@@ -22,15 +22,11 @@
     ...
   } @ inputs: let
     inherit (self) outputs;
-    systems = [
-      "x86_64-linux"
-      "aarch64-darwin"
-    ];
     system = "x86_64-linux";
-    forAllSystems = nixpkgs.lib.genAttrs systems;
     pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
   in {
-    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
+    formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
+
 
     overlays = import ./overlays {inherit inputs;};
     nixosModules = import ./modules/nixos;
