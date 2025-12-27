@@ -10,16 +10,9 @@
     home-manager-master.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-
-    omarchy.url = "github:henrysipp/omarchy-nix";
-    omarchy.inputs.nixpkgs.follows = "nixpkgs";
-    omarchy.inputs.home-manager.follows = "home-manager";
   };
 
   outputs = {
