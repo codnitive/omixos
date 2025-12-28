@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, self, ... }:
 let
   # Get a flattened list of every file path in this directory and its subdirectories
   allFiles = lib.filesystem.listFilesRecursive ./.;
@@ -14,14 +14,3 @@ in {
   imports = validModules;
 }
 
-#
-# { lib, ... }:
-# let
-#   # Read the directory, filter for .nix files, and exclude this file (default.nix)
-#   files = builtins.attrNames (builtins.readDir ./.);
-#   isNixFile = name: lib.hasSuffix ".nix" name && name != "default.nix";
-#   listOfFiles = map (name: ./. + "/${name}") (builtins.filter isNixFile files);
-# in {
-#   imports = listOfFiles;
-# }
-#
