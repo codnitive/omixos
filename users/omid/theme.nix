@@ -1,12 +1,17 @@
 # To override default theme for specific user
 { pkgs, lib, ... }:
 
+let
+  # e.g.
+  # theme = import ../../themes/ominawa/theme.nix;
+in
 {
   home-manager = {
     users.omid = {
+      # e.g.
       # # Manually set the color scheme for nix-colors used by Omarchy
       # # mkForce ensures your custom colors override the ones Omarchy looks up
-      # colorScheme = lib.mkForce kanagawa-dragon;
+      # colorScheme = lib.mkForce theme;
 
       # # GNOME/GTK Dark Mode
       # dconf.settings = lib.mkForce {
@@ -14,7 +19,7 @@
       #     color-scheme = "prefer-light";
       #   };
       # };
-      #
+
       # gtk = lib.mkForce {
       #   theme = {
       #     name = "Adwaita";
