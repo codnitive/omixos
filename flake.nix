@@ -10,6 +10,7 @@
     home-manager-master.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    nix-colors.url = "github:misterio77/nix-colors";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
@@ -19,6 +20,7 @@
     self,
     nixpkgs,
     home-manager,
+    nix-colors,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -64,6 +66,7 @@
         {
           imports = [
             nix-colors.homeManagerModules.default
+	    ./themes/default.nix
             ./modules/home-manager/default.nix
           ];
           options.omarchy = (import ./config.nix lib).omarchyOptions;
